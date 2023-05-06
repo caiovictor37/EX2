@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  mysql:
+    image: TODO/mysql
+    container_name: mysql
+    networks:
+      - custom-network
+  
+  nodejs:
+    image: TODO/nodejs
+    container_name: nodejs
+    networks:
+      - custom-network
+    ports:
+      - "8081:80"
+  
+  nginx:
+    image: TODO/nginx
+    container_name: nginx
+    networks:
+      - custom-network
+    ports:
+      - "8080:80"
+  
+networks:
+  custom-network:
+    driver: bridge
