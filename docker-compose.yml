@@ -2,26 +2,37 @@ version: '3'
 
 services:
   mysql:
-    image: TODO/mysql
+    image: mysql:5.7
     container_name: mysql
+    command: --innodb-use-native-aio=0
+    restart: always
+    tty: true
+    volumes:
+      - ./mysql:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=nodedb
+      - MYSQL_ROOT_PASSWORD=root
     networks:
       - custom-network
   
   nodejs:
-    image: TODO/nodejs
+    build: 
+      context: node
+      dockerfile: Dockerfile.dockerfile
     container_name: nodejs
+    tty: true
     networks:
       - custom-network
     ports:
-      - "8081:80"
+      - "3001:3000"
   
-  nginx:
-    image: TODO/nginx
-    container_name: nginx
-    networks:
-      - custom-network
-    ports:
-      - "8080:80"
+  #nginx:
+    #image: TODO/nginx
+    #container_name: nginx
+    #networks:
+      #- custom-network
+    #ports:
+      #- "8080:80"
   
 networks:
   custom-network:
