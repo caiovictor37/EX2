@@ -23,19 +23,21 @@ services:
     tty: true
     networks:
       - custom-network
-    ports:
-      - "3001:3000"
     depends_on:
       - mysql
     entrypoint: dockerize -wait tcp://mysql:3306 -timeout 20s node index.js
   
-  #nginx:
-    #image: TODO/nginx
-    #container_name: nginx
-    #networks:
-      #- custom-network
-    #ports:
-      #- "8080:80"
+  nginx:
+    build: 
+      context: nginx
+      dockerfile: Dockerfile.dockerfile
+    container_name: nginx
+    networks:
+      - custom-network
+    depends_on:
+      - nodejs
+    ports:
+      - "8080:80"
   
 networks:
   custom-network:
