@@ -1,1 +1,1 @@
-Existing folder in case of volume creation for MySQL
+Existing folder in case of volume creation for MySQL, so this way backup database for other containers is possible
